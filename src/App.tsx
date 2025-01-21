@@ -1,13 +1,18 @@
 import { useEffect } from 'react';
+import { Sidebar } from './components/Sidebar';
+import { Tree } from './tree/Tree';
 
 export function App() {
-  // Do not hesitate to refactor this effect or use a different library to retrieve data
-  // it's only provided here as an example on how to fetch the data from the server
-  useEffect(() => {
-    fetch('http://localhost:8010/api/v1/tree')
-      .then((r) => r.json())
-      .then(console.log);
-  }, []);
-
-  return <h1>Corti Frontend Home Assignment</h1>;
+  return (
+    <div className="border-2 border-black flex flex-col">
+      <header className="h-[100px] border-b-2 border-black flex items-center">
+        <h1 className="text-xl font-bold p-4">Home Assignment</h1>
+      </header>
+      <div className="flex flex-1">
+        <Sidebar>
+          <Tree />
+        </Sidebar>
+      </div>
+    </div>
+  );
 }
