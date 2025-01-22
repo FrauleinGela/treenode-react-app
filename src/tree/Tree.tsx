@@ -6,7 +6,7 @@ import { TreeNode } from './components/TreeNode';
 import { Sidebar } from '../components/Sidebar';
 import { useTreeContext } from '../context/TreeContext';
 import { useEffect } from 'react';
-import { TreeNodeDetails } from '../components/TreeNodeDetails/TreeNodeDetails';
+import { TreeNodeDetails } from './components/TreeNodeDetails/TreeNodeDetails';
 
 export const Tree = () => {
   const { data, error, isLoading } = useSWR(
