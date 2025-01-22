@@ -1,9 +1,16 @@
 import clsx from 'clsx';
 import { useTreeContext } from '../../../context/TreeContext';
+import { TreeNodeModel } from '../../../types/treeNode';
 
 export const TreeNodeDetails = () => {
-  const { getSelectedNode } = useTreeContext();
-  const selectedNode = getSelectedNode();
+  const { getSelectedNode, expandNodeAndParents, setSelectedNodeId } =
+    useTreeContext();
+  const selectedNode: TreeNodeModel | null = getSelectedNode();
+
+  const selectNodeId = (nodeId: string): void => {
+    expandNodeAndParents(nodeId);
+    setSelectedNodeId(nodeId);
+  };
 
   if (!selectedNode) {
     return '';
@@ -14,7 +21,7 @@ export const TreeNodeDetails = () => {
       {selectedNode.children && selectedNode.children.length > 0 && (
         <ul className="list-none gap-4 flex flex-wrap">
           {selectedNode.children.map((child) => (
-            <li key={child.id}>
+            <li key={child.id} onClick={() => selectNodeId(child.id)}>
               <div
                 className={clsx('w-32 h-32 flex items-center justify-center', {
                   'bg-slate-400 text-white': child.type === 'folder',

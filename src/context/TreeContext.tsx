@@ -6,6 +6,11 @@ interface TreeContext {
   setSelectedNodeId: React.Dispatch<React.SetStateAction<string | null>>;
   treeNodes: TreeNodeModel[] | [];
   setTreeNodes: React.Dispatch<React.SetStateAction<TreeNodeModel[] | []>>;
+  expandedNodeIds: { [key: string]: boolean };
+  setExpandedNodeIds: React.Dispatch<
+    React.SetStateAction<{ [key: string]: boolean }>
+  >;
+  expandNodeAndParents: (id: string) => void;
   getSelectedNode: () => TreeNodeModel | null;
 }
 
@@ -22,6 +27,10 @@ export const useTreeContext = () => {
 export const TreeProvider = ({ children }: { children: React.ReactNode }) => {
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const [treeNodes, setTreeNodes] = useState<TreeNodeModel[] | []>([]);
+  const [expandedNodeIds, setExpandedNodeIds] = useState<{
+    [key: string]: boolean;
+  }>({});
+
   const getSelectedNode = (): TreeNodeModel | null => {
     if (!treeNodes || !selectedNodeId) return null;
 
@@ -39,6 +48,39 @@ export const TreeProvider = ({ children }: { children: React.ReactNode }) => {
     return findNode(treeNodes);
   };
 
+  const expandNodeAndParents = (nodeId: string) => {
+    const findNodeAndParents = (
+      nodes: TreeNodeModel[],
+      treeNodeId: string
+    ): string[] | null => {
+      for (const node of nodes) {
+        if (node.id === treeNodeId) {
+          return [node.id];
+        }
+
+        if (node.children) {
+          const result = findNodeAndParents(node.children, treeNodeId);
+          if (result) {
+            return [node.id, ...result];
+          }
+        }
+      }
+      return null;
+    };
+
+    const nodeAndParents = findNodeAndParents(treeNodes, nodeId);
+    if (nodeAndParents) {
+      setExpandedNodeIds((prev) => {
+        const newExpandedNodeIds = { ...prev };
+        nodeAndParents.forEach((id) => {
+          newExpandedNodeIds[id] = true;
+        });
+        console.log(newExpandedNodeIds);
+        return newExpandedNodeIds;
+      });
+    }
+  };
+
   return (
     <TreeContext.Provider
       value={{
@@ -46,7 +88,10 @@ export const TreeProvider = ({ children }: { children: React.ReactNode }) => {
         setSelectedNodeId,
         treeNodes,
         setTreeNodes,
-        getSelectedNode
+        getSelectedNode,
+        expandedNodeIds,
+        setExpandedNodeIds,
+        expandNodeAndParents,
       }}
     >
       {children}

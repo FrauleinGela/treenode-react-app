@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { TreeNodeModel } from '../../types/treeNode';
 import { useTreeContext } from '../../context/TreeContext';
 
@@ -39,13 +38,17 @@ const CollapsedIcon = () => (
 );
 
 export const TreeNode = ({ node }: { node: TreeNodeModel }) => {
-  const [expanded, setExpanded] = useState(false);
-  const { selectedNodeId, setSelectedNodeId } = useTreeContext();
+  const { setSelectedNodeId, expandedNodeIds, setExpandedNodeIds } =
+    useTreeContext();
+  const isExpanded: boolean = expandedNodeIds[node.id] || false;
 
   const handleNodeClick = () => {
     setSelectedNodeId(node.id);
     if (node.type === 'folder') {
-      setExpanded((prev) => !prev);
+      setExpandedNodeIds((prev) => ({
+        ...prev,
+        [node.id]: !isExpanded,
+      }));
     }
   };
 
@@ -57,7 +60,7 @@ export const TreeNode = ({ node }: { node: TreeNodeModel }) => {
         style={{ cursor: 'pointer' }}
       >
         {node.type === 'folder' ? (
-          expanded ? (
+          isExpanded ? (
             <ExpandedIcon />
           ) : (
             <CollapsedIcon />
@@ -67,8 +70,8 @@ export const TreeNode = ({ node }: { node: TreeNodeModel }) => {
         )}
         {node.name}
       </div>
-      {expanded && node.children && (
-        <ul style={{ paddingLeft: 20 }}>
+      {isExpanded && node.children && (
+        <ul className="pl-4">
           {node.children.map((child) => (
             <TreeNode key={child.id} node={child} />
           ))}
