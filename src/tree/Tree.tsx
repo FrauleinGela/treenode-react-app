@@ -4,7 +4,7 @@ import { TreeNodeModel } from '../types/treeNode';
 import { mapDataToTreeNodeModel } from '../tree/utils/mapTreeNodes';
 import { TreeNode } from './components/TreeNode';
 import { Sidebar } from '../components/Sidebar';
-import { useTreeContext } from './components/context/TreeContext';
+import { useTreeContext } from './context/TreeContext';
 import { useEffect } from 'react';
 import { TreeNodeDetails } from './components/TreeNodeDetails/TreeNodeDetails';
 

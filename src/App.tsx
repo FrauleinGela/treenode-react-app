@@ -1,5 +1,5 @@
 import { Tree } from './tree/Tree';
-import { TreeProvider } from './tree/components/context/TreeContext';
+import { TreeProvider } from './tree/context/TreeContext';
 
 export function App() {
   return (

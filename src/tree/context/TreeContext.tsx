@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
-import { TreeNodeModel } from '../../../types/treeNode';
+import { TreeNodeModel } from '../../types/treeNode';
 
 interface TreeContext {
   selectedNodeId: string | null;

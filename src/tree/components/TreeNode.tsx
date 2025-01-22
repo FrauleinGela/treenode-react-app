@@ -1,5 +1,5 @@
 import { TreeNodeModel } from '../../types/treeNode';
-import { useTreeContext } from './context/TreeContext';
+import { useTreeContext } from '../context/TreeContext';
 import clsx from 'clsx';
 
 const ExpandedIcon = () => (
