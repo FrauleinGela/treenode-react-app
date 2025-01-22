@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
-import { TreeNodeModel } from '../types/treeNode';
+import React, { createContext, useCallback, useContext, useState } from 'react';
+import { TreeNodeModel } from '../../../types/treeNode';
 
 interface TreeContext {
   selectedNodeId: string | null;
@@ -31,7 +31,7 @@ export const TreeProvider = ({ children }: { children: React.ReactNode }) => {
     [key: string]: boolean;
   }>({});
 
-  const getSelectedNode = (): TreeNodeModel | null => {
+  const getSelectedNode = useCallback((): TreeNodeModel | null => {
     if (!treeNodes || !selectedNodeId) return null;
 
     const findNode = (nodes: TreeNodeModel[]): TreeNodeModel | null => {
@@ -46,7 +46,7 @@ export const TreeProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     return findNode(treeNodes);
-  };
+  }, [treeNodes, selectedNodeId]);
 
   const expandNodeAndParents = (nodeId: string) => {
     const findNodeAndParents = (
@@ -75,7 +75,7 @@ export const TreeProvider = ({ children }: { children: React.ReactNode }) => {
         nodeAndParents.forEach((id) => {
           newExpandedNodeIds[id] = true;
         });
-        console.log(newExpandedNodeIds);
+        
         return newExpandedNodeIds;
       });
     }

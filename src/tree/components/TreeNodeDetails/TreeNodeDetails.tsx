@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useTreeContext } from '../../../context/TreeContext';
+import { useTreeContext } from '../context/TreeContext';
 import { TreeNodeModel } from '../../../types/treeNode';
 
 export const TreeNodeDetails = () => {

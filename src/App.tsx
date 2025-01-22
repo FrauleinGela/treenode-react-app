@@ -1,7 +1,5 @@
-import { useEffect } from 'react';
-import { Sidebar } from './components/Sidebar';
 import { Tree } from './tree/Tree';
-import { TreeProvider } from './context/TreeContext';
+import { TreeProvider } from './tree/components/context/TreeContext';
 
 export function App() {
   return (

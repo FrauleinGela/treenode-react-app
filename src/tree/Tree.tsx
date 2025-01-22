@@ -4,7 +4,7 @@ import { TreeNodeModel } from '../types/treeNode';
 import { mapDataToTreeNodeModel } from '../tree/utils/mapTreeNodes';
 import { TreeNode } from './components/TreeNode';
 import { Sidebar } from '../components/Sidebar';
-import { useTreeContext } from '../context/TreeContext';
+import { useTreeContext } from './components/context/TreeContext';
 import { useEffect } from 'react';
 import { TreeNodeDetails } from './components/TreeNodeDetails/TreeNodeDetails';
 
@@ -16,10 +16,8 @@ export const Tree = () => {
   const { setTreeNodes, treeNodes } = useTreeContext();
 
   useEffect(() => {
-    if (data) {
-      const treeNodes: TreeNodeModel[] = mapDataToTreeNodeModel(data);
-      setTreeNodes(treeNodes);
-    }
+    const treeNodes: TreeNodeModel[] = mapDataToTreeNodeModel(data);
+    setTreeNodes(treeNodes);
   }, [data, setTreeNodes]);
 
   if (error) return <div>failed to load, please retry again</div>;
