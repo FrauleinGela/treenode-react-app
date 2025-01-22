@@ -1,4 +1,7 @@
+*The solution took around 5.5 hours, including time to update the README. It took longer than expected because Project is set with React v18, and had to read differences since my recent experience is with React v19 and Nextjs* 
+
 # Solution explained
+![alt text](image.png)
 A React feature-based organization project to ensure a maintanable structure that displays a file system directory
 
 Below is an explanation of the packages used, as well as the steps taken to resolve each user story.
