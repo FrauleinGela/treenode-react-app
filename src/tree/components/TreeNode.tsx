@@ -1,5 +1,6 @@
 import { TreeNodeModel } from '../../types/treeNode';
 import { useTreeContext } from '../../context/TreeContext';
+import clsx from 'clsx';
 
 const ExpandedIcon = () => (
   <svg
@@ -38,9 +39,14 @@ const CollapsedIcon = () => (
 );
 
 export const TreeNode = ({ node }: { node: TreeNodeModel }) => {
-  const { setSelectedNodeId, expandedNodeIds, setExpandedNodeIds } =
-    useTreeContext();
+  const {
+    setSelectedNodeId,
+    expandedNodeIds,
+    setExpandedNodeIds,
+    getSelectedNode,
+  } = useTreeContext();
   const isExpanded: boolean = expandedNodeIds[node.id] || false;
+  const selectedNode: TreeNodeModel | null = getSelectedNode();
 
   const handleNodeClick = () => {
     setSelectedNodeId(node.id);
@@ -68,7 +74,13 @@ export const TreeNode = ({ node }: { node: TreeNodeModel }) => {
         ) : (
           <div className="w-6 h-6"></div>
         )}
-        {node.name}
+        <div
+          className={clsx('px-2',{
+            'bg-slate-400': node.id === selectedNode?.id,
+          })}
+        >
+          {node.name}
+        </div>
       </div>
       {isExpanded && node.children && (
         <ul className="pl-4">
