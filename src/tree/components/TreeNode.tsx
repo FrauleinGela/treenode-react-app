@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { TreeNodeModel } from '../../types/treeNode';
+import { useTreeContext } from '../../context/TreeContext';
 
 const ExpandedIcon = () => (
   <svg
@@ -36,14 +37,23 @@ const CollapsedIcon = () => (
     />
   </svg>
 );
+
 export const TreeNode = ({ node }: { node: TreeNodeModel }) => {
   const [expanded, setExpanded] = useState(false);
+  const { selectedNodeId, setSelectedNodeId } = useTreeContext();
+
+  const handleNodeClick = () => {
+    setSelectedNodeId(node.id);
+    if (node.type === 'folder') {
+      setExpanded((prev) => !prev);
+    }
+  };
 
   return (
     <li className="block cursor-pointer min-w-[300px] whitespace-nowrap py-2">
       <div
         className="flex"
-        onClick={() => setExpanded((prev)=> !prev)}
+        onClick={() => handleNodeClick()}
         style={{ cursor: 'pointer' }}
       >
         {node.type === 'folder' ? (

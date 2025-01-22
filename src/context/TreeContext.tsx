@@ -6,6 +6,7 @@ interface TreeContext {
   setSelectedNodeId: React.Dispatch<React.SetStateAction<string | null>>;
   treeNodes: TreeNodeModel[] | [];
   setTreeNodes: React.Dispatch<React.SetStateAction<TreeNodeModel[] | []>>;
+  getSelectedNode: () => TreeNodeModel | null;
 }
 
 const TreeContext = createContext<TreeContext | undefined>(undefined);
@@ -20,10 +21,23 @@ export const useTreeContext = () => {
 
 export const TreeProvider = ({ children }: { children: React.ReactNode }) => {
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
-  const [expandedNodesIds, setExpandedNodesIds] = useState<{
-    [key: string]: boolean;
-  }>({});
   const [treeNodes, setTreeNodes] = useState<TreeNodeModel[] | []>([]);
+  const getSelectedNode = (): TreeNodeModel | null => {
+    if (!treeNodes || !selectedNodeId) return null;
+
+    const findNode = (nodes: TreeNodeModel[]): TreeNodeModel | null => {
+      for (const node of nodes) {
+        if (node.id === selectedNodeId) return node;
+        if (node.children) {
+          const found = findNode(node.children);
+          if (found) return found;
+        }
+      }
+      return null;
+    };
+
+    return findNode(treeNodes);
+  };
 
   return (
     <TreeContext.Provider
@@ -32,6 +46,7 @@ export const TreeProvider = ({ children }: { children: React.ReactNode }) => {
         setSelectedNodeId,
         treeNodes,
         setTreeNodes,
+        getSelectedNode
       }}
     >
       {children}

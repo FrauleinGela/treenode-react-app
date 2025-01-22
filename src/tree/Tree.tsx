@@ -34,7 +34,7 @@ export const Tree = () => {
           ))}
         </ul>
       </Sidebar>
-      <div className="flex-1 p-6 overflow-auto">
+      <div className="flex-1 p-5 overflow-auto">
         <TreeNodeDetails />
       </div>
     </>
