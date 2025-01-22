@@ -58,6 +58,13 @@ export const TreeNode = ({ node }: { node: TreeNodeModel }) => {
     }
   };
 
+  const renderStatusIcon = () => {
+    if (node.type === 'folder') {
+      return isExpanded ? <ExpandedIcon /> : <CollapsedIcon />;
+    }
+    return <div className="w-6 h-6"></div>;
+  };
+
   return (
     <li className="block cursor-pointer min-w-[300px] whitespace-nowrap py-2">
       <div
@@ -65,17 +72,9 @@ export const TreeNode = ({ node }: { node: TreeNodeModel }) => {
         onClick={() => handleNodeClick()}
         style={{ cursor: 'pointer' }}
       >
-        {node.type === 'folder' ? (
-          isExpanded ? (
-            <ExpandedIcon />
-          ) : (
-            <CollapsedIcon />
-          )
-        ) : (
-          <div className="w-6 h-6"></div>
-        )}
+        {renderStatusIcon()}
         <div
-          className={clsx('px-2',{
+          className={clsx('mx-1 px-1', {
             'bg-slate-400': node.id === selectedNode?.id,
           })}
         >
