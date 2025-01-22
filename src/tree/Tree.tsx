@@ -2,7 +2,7 @@ import useSWR from 'swr';
 import { fetcher } from '../utils/fetcher';
 import { TreeNodeModel } from '../types/treeNode';
 import { mapDataToTreeNodeModel } from '../tree/utils/mapTreeNodes';
-import { TreeNode } from './components/TreeNode';
+import { TreeNode } from './components/TreeNode/TreeNode';
 import { Sidebar } from '../components/Sidebar';
 import { useTreeContext } from './context/TreeContext';
 import { useEffect } from 'react';
