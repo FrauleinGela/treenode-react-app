@@ -7,6 +7,8 @@ import { Sidebar } from '../components/Sidebar';
 import { useTreeContext } from './context/TreeContext';
 import { useEffect } from 'react';
 import { TreeNodeDetails } from './components/TreeNodeDetails/TreeNodeDetails';
+import { NodeSelectedProvider } from './context/TreeNodeSelected';
+import { ExpandedNodesProvider } from './context/ExpandedNodesContext';
 
 export const Tree = () => {
   const { data, error, isLoading } = useSWR(
@@ -14,27 +16,30 @@ export const Tree = () => {
     fetcher
   );
   const { setTreeNodes, treeNodes } = useTreeContext();
-
   useEffect(() => {
-    const treeNodes: TreeNodeModel[] = mapDataToTreeNodeModel(data);
-    setTreeNodes(treeNodes);
-  }, [data, setTreeNodes]);
+    if (!data) {
+      return;
+    }
+
+    setTreeNodes(mapDataToTreeNodeModel(data));
+  }, [data]);
 
   if (error) return <div>failed to load, please retry again</div>;
   if (isLoading) return <div>loading...</div>;
-
   return (
-    <>
-      <Sidebar>
-        <ul>
-          {treeNodes.map((node) => (
-            <TreeNode key={node.id} node={node} />
-          ))}
-        </ul>
-      </Sidebar>
-      <div className="flex-1 p-5 overflow-auto">
-        <TreeNodeDetails />
-      </div>
-    </>
+    <NodeSelectedProvider>
+      <ExpandedNodesProvider>
+        <Sidebar>
+          <ul>
+            {treeNodes?.map((node) => (
+              <TreeNode key={node.id} node={node} />
+            ))}
+          </ul>
+        </Sidebar>
+        <div className="flex-1 p-5 overflow-auto">
+          <TreeNodeDetails />
+        </div>
+      </ExpandedNodesProvider>
+    </NodeSelectedProvider>
   );
 };
