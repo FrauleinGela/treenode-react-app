@@ -4,18 +4,18 @@ import { TreeNodeModel } from '../types/treeNode';
 import { mapDataToTreeNodeModel } from '../tree/utils/mapTreeNodes';
 import { TreeNode } from './components/TreeNode/TreeNode';
 import { Sidebar } from '../components/Sidebar';
-import { useTreeContext } from './context/TreeContext';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { TreeNodeDetails } from './components/TreeNodeDetails/TreeNodeDetails';
 import { NodeSelectedProvider } from './context/TreeNodeSelected';
 import { ExpandedNodesProvider } from './context/ExpandedNodesContext';
 
 export const Tree = () => {
+  const [treeNodes, setTreeNodes] = useState<TreeNodeModel[]>();
   const { data, error, isLoading } = useSWR(
     'http://localhost:8010/api/v1/tree',
     fetcher
   );
-  const { setTreeNodes, treeNodes } = useTreeContext();
+
   useEffect(() => {
     if (!data) {
       return;

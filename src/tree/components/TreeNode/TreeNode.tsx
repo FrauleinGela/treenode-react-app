@@ -1,5 +1,4 @@
 import { TreeNodeModel } from '../../../types/treeNode';
-import { useTreeContext } from '../../context/TreeContext';
 import clsx from 'clsx';
 import { ExpandedIcon } from './components/ExpandedIcon';
 import { CollapsedIcon } from './components/CollapsedIcon';
