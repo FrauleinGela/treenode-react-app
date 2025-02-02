@@ -16,7 +16,7 @@ export const TreeNode = ({ node }: { node: TreeNodeModel }) => {
     if (node.type === 'folder') {
       setExpandedNodeIds((prev) => ({
         ...prev,
-        [node.id]: !isExpanded,
+        [node.id]: !prev[node.id],
       }));
     }
   };
@@ -27,7 +27,7 @@ export const TreeNode = ({ node }: { node: TreeNodeModel }) => {
     }
     return <div className="w-6 h-6"></div>;
   };
-  
+
   return (
     <li className="block cursor-pointer min-w-[300px] whitespace-nowrap py-2">
       <div
