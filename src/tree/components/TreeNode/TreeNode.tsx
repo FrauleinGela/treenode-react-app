@@ -1,11 +1,11 @@
-import { TreeNodeModel } from '../../../types/treeNode';
+import { ITreeNode } from '../../../types/treeNode';
 import clsx from 'clsx';
 import { ExpandedIcon } from './components/ExpandedIcon';
 import { CollapsedIcon } from './components/CollapsedIcon';
 import { useNodeSelectedContext } from '../../context/TreeNodeSelected';
 import { useExpandedNodesContext } from '../../context/ExpandedNodesContext';
 
-export const TreeNode = ({ node }: { node: TreeNodeModel }) => {
+export const TreeNode = ({ node }: { node: ITreeNode }) => {
   const { expandedNodeIds, setExpandedNodeIds } = useExpandedNodesContext();
   const { nodeSelected, setNodeSelected } = useNodeSelectedContext();
   const isExpanded: boolean = expandedNodeIds[node.id] || false;

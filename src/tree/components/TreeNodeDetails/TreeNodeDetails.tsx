@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { TreeNodeModel } from '../../../types/treeNode';
+import { ITreeNode } from '../../../types/treeNode';
 import { useNodeSelectedContext } from '../../context/TreeNodeSelected';
 import { useExpandedNodesContext } from '../../context/ExpandedNodesContext';
 
@@ -7,7 +7,7 @@ export const TreeNodeDetails = () => {
   const { expandNodeAndParents } = useExpandedNodesContext();
   const { nodeSelected, setNodeSelected } = useNodeSelectedContext();
 
-  const handleNodeSelected = (node: TreeNodeModel): void => {
+  const handleNodeSelected = (node: ITreeNode): void => {
     expandNodeAndParents(node);
     setNodeSelected(node);
   };

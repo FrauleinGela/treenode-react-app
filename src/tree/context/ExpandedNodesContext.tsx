@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useState } from 'react';
-import { TreeNodeModel } from '../../types/treeNode';
+import { ITreeNode } from '../../types/treeNode';
 
 interface IExpandedNodesContext {
   expandedNodeIds: { [key: string]: boolean };
   setExpandedNodeIds: React.Dispatch<
     React.SetStateAction<{ [key: string]: boolean }>
   >;
-  expandNodeAndParents: (node: TreeNodeModel) => void;
+  expandNodeAndParents: (node: ITreeNode) => void;
 }
 
 const ExpandedNodesContext = createContext<IExpandedNodesContext | undefined>(
@@ -32,7 +32,7 @@ export const ExpandedNodesProvider = ({
     [key: string]: boolean;
   }>({});
 
-  const expandNodeAndParents = (node: TreeNodeModel) => {
+  const expandNodeAndParents = (node: ITreeNode) => {
     setExpandedNodeIds((prev) => {
       const newExpandedNodeIds: { [key: string]: boolean } =
         node.parentNodesIds.reduce(

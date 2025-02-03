@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
 import { sortTreeNodes } from '../../utils/sortTreeNodes';
-import { TreeNodeModel } from '../../../types/treeNode';
+import { ITreeNode } from '../../../types/treeNode';
 
 describe('sortTreeNodes', () => {
-  const data: TreeNodeModel[] = [
+  const data: ITreeNode[] = [
     {
       id: 'id3',
       type: 'image',
@@ -34,7 +34,7 @@ describe('sortTreeNodes', () => {
   ];
 
   it('should sort tree nodes', () => {
-    const actual: TreeNodeModel[] = sortTreeNodes(data);
+    const actual: ITreeNode[] = sortTreeNodes(data);
     const expected = [
       {
         id: 'id1',

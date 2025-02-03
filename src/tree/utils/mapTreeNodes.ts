@@ -1,7 +1,7 @@
-import { TreeNodeModel } from '../../types/treeNode';
+import { ITreeNode } from '../../types/treeNode';
 import { sortTreeNodes } from './sortTreeNodes';
 
-export const mapDataToTreeNodeModel = (data: any): TreeNodeModel[] => {
+export const mapDataToTreeNodeModel = (data: any): ITreeNode[] => {
   const items = data?.data;
   if (!items || !Array.isArray(items)) {
     return [];
@@ -14,7 +14,7 @@ const mapTreeNodesModel = (
   items: any[],
   currentParentNodeId: string | null = null,
   parentNodesIds: string[] = []
-): TreeNodeModel[] => {
+): ITreeNode[] => {
   return items.map((item: any) => {
     const currentParentIds = currentParentNodeId
       ? [...parentNodesIds, currentParentNodeId]
@@ -28,6 +28,6 @@ const mapTreeNodesModel = (
       children: item.children
         ? mapTreeNodesModel(item.children, item.id, currentParentIds)
         : undefined,
-    } as TreeNodeModel;
+    } as ITreeNode;
   });
 };

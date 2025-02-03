@@ -1,6 +1,6 @@
-import { TreeNodeModel } from '../../types/treeNode';
+import { ITreeNode } from '../../types/treeNode';
 
-export const sortTreeNodes = (data: TreeNodeModel[]): TreeNodeModel[] => {
+export const sortTreeNodes = (data: ITreeNode[]): ITreeNode[] => {
   return data
     .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }))
     .map((item) => {

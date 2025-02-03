@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState } from 'react';
-import { TreeNodeModel } from '../../types/treeNode';
+import { ITreeNode } from '../../types/treeNode';
 
 interface INodeSelectedContext {
-  nodeSelected: TreeNodeModel | null;
-  setNodeSelected: React.Dispatch<React.SetStateAction<TreeNodeModel | null>>;
+  nodeSelected: ITreeNode | null;
+  setNodeSelected: React.Dispatch<React.SetStateAction<ITreeNode | null>>;
 }
 
 const NodeSelectedContext = createContext<INodeSelectedContext | undefined>(
@@ -25,7 +25,7 @@ export const NodeSelectedProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [nodeSelected, setNodeSelected] = useState<TreeNodeModel | null>(null);
+  const [nodeSelected, setNodeSelected] = useState<ITreeNode | null>(null);
 
   const contextValue = {
     nodeSelected,

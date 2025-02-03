@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import { fetcher } from '../utils/fetcher';
-import { TreeNodeModel } from '../types/treeNode';
+import { ITreeNode } from '../types/treeNode';
 import { mapDataToTreeNodeModel } from '../tree/utils/mapTreeNodes';
 import { TreeNode } from './components/TreeNode/TreeNode';
 import { Sidebar } from '../components/Sidebar';
@@ -10,7 +10,7 @@ import { NodeSelectedProvider } from './context/TreeNodeSelected';
 import { ExpandedNodesProvider } from './context/ExpandedNodesContext';
 
 export const Tree = () => {
-  const [treeNodes, setTreeNodes] = useState<TreeNodeModel[]>();
+  const [treeNodes, setTreeNodes] = useState<ITreeNode[]>();
   const { data, error, isLoading } = useSWR(
     'http://localhost:8010/api/v1/tree',
     fetcher
