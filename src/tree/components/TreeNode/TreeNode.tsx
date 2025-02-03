@@ -35,13 +35,13 @@ export const TreeNode = ({ node }: { node: TreeNodeModel }) => {
         style={{ cursor: 'pointer' }}
       >
         {renderStatusIcon()}
-        <div
+        <span
           className={clsx('mx-1 px-1', {
             'bg-slate-400': node.id === nodeSelected?.id,
           })}
         >
           {node.name}
-        </div>
+        </span>
       </button>
       {isExpanded && node.children && (
         <ol className="pl-4">
