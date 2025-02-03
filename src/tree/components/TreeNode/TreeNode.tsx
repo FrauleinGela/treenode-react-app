@@ -29,7 +29,7 @@ export const TreeNode = ({ node }: { node: TreeNodeModel }) => {
 
   return (
     <li className="block cursor-pointer min-w-[300px] whitespace-nowrap py-2">
-      <div
+      <button
         className="flex"
         onClick={() => handleNodeClick()}
         style={{ cursor: 'pointer' }}
@@ -42,13 +42,13 @@ export const TreeNode = ({ node }: { node: TreeNodeModel }) => {
         >
           {node.name}
         </div>
-      </div>
+      </button>
       {isExpanded && node.children && (
-        <ul className="pl-4">
+        <ol className="pl-4">
           {node.children.map((child) => (
             <TreeNode key={child.id} node={child} />
           ))}
-        </ul>
+        </ol>
       )}
     </li>
   );
