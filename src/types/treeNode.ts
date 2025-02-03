@@ -5,4 +5,5 @@ export interface TreeNodeModel {
   type: NodeType;
   name: string;
   children?: TreeNodeModel[];
+  parentNodesIds: string[];
 }

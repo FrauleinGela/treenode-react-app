@@ -4,14 +4,11 @@ import { useNodeSelectedContext } from '../../context/TreeNodeSelected';
 import { useExpandedNodesContext } from '../../context/ExpandedNodesContext';
 
 export const TreeNodeDetails = () => {
-  const { setExpandedNodeIds } = useExpandedNodesContext();
+  const { expandNodeAndParents } = useExpandedNodesContext();
   const { nodeSelected, setNodeSelected } = useNodeSelectedContext();
 
-  const selectNodeId = (node: TreeNodeModel): void => {
-    setExpandedNodeIds((prev) => ({
-      ...prev,
-      [node.id]: true,
-    }));
+  const handleNodeSelected = (node: TreeNodeModel): void => {
+    expandNodeAndParents(node);
     setNodeSelected(node);
   };
   if (!nodeSelected) {
@@ -20,9 +17,9 @@ export const TreeNodeDetails = () => {
 
   return nodeSelected.children && nodeSelected.children.length > 0 ? (
     <div className="flex-1 px-6">
-      <ul className="list-none gap-4 flex flex-wrap">
+      <ol className="list-none gap-4 flex flex-wrap">
         {nodeSelected.children.map((child) => (
-          <li key={child.id} onClick={() => selectNodeId(child)}>
+          <li key={child.id} onClick={() => handleNodeSelected(child)}>
             <div
               className={clsx('w-32 h-32 flex items-center justify-center', {
                 'bg-slate-400 text-white': child.type === 'folder',
@@ -36,7 +33,7 @@ export const TreeNodeDetails = () => {
             </div>
           </li>
         ))}
-      </ul>
+      </ol>
     </div>
   ) : (
     <div>

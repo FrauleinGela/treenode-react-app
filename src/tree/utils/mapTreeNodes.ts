@@ -10,14 +10,24 @@ export const mapDataToTreeNodeModel = (data: any): TreeNodeModel[] => {
   return sortTreeNodes(mapTreeNodesModel(items));
 };
 
-const mapTreeNodesModel = (items: any[]): TreeNodeModel[] => {
-  return items.map(
-    (item: any) =>
-      ({
-        id: item.id,
-        type: item.type,
-        name: item.name,
-        children: item.children ? mapTreeNodesModel(item.children) : undefined,
-      } as TreeNodeModel)
-  );
+const mapTreeNodesModel = (
+  items: any[],
+  currentParentNodeId: string | null = null,
+  parentNodesIds: string[] = []
+): TreeNodeModel[] => {
+  return items.map((item: any) => {
+    const currentParentIds = currentParentNodeId
+      ? [...parentNodesIds, currentParentNodeId]
+      : parentNodesIds;
+
+    return {
+      id: item.id,
+      type: item.type,
+      name: item.name,
+      parentNodesIds: currentParentIds,
+      children: item.children
+        ? mapTreeNodesModel(item.children, item.id, currentParentIds)
+        : undefined,
+    } as TreeNodeModel;
+  });
 };
